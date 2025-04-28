@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Disk Scheduling Algorithm Visualization</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+    </head>
+    <body class="p-4 md:p-8">
+        <div class="max-w-6xl mx-auto bg-white p-6 md:p-8 rounded-xl shadow-lg">
+            <h1 class="text-2xl md:text-3xl font-bold mb-6 text-center text-gray-800">Disk Scheduling Algorithm Visualization</h1>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6 items-end">
+                <div>
+                    <label for="algorithm" class="block text-sm font-medium text-gray-700 mb-1">Algorithm:</label>
+                    <select id="algorithm" class="w-full">
+                        <option value="fcfs">FCFS</option>
+                        <option value="scan">SCAN</option>
+                        <option value="look">LOOK</option>
+                        <option value="cscan">C-SCAN</option>
+                        <option value="clook">C-LOOK</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="startPosition" class="block text-sm font-medium text-gray-700 mb-1">Start Head Position (0-199):</label>
+                    <input type="number" id="startPosition" value="100" min="0" class="w-full">
+                </div>
+                <div>
+                    <label for="maxSector" class="block text-sm font-medium text-gray-700 mb-1">Total Sectors (e.g., 200):</label>
+                    <input type="number" id="maxSector" value="200" min="1" class="w-full">
+                </div>
+                <div>
+                    <label for="direction" class="block text-sm font-medium text-gray-700 mb-1">Initial Direction (SCAN/LOOK):</label>
+                    <select id="direction" class="w-full">
+                        <option value="right">Towards Higher Sectors (Right)</option>
+                        <option value="left">Towards Lower Sectors (Left)</option>
+                    </select>
+                </div>
+                <div class="md:col-span-2">
+                    <label for="requests" class="block text-sm font-medium text-gray-700 mb-1">Sector Requests (comma-separated):</label>
+                    <input type="text" id="requests" placeholder="e.g., 98, 183, 37, 122, 14, 124, 65, 67" class="w-full">
+                </div>
+                <div class="flex items-end space-x-2">
+                    <div>
+                        <label for="randomCount" class="block text-sm font-medium text-gray-700 mb-1">Or Randomize:</label>
+                        <input type="number" id="randomCount" value="8" min="1" class="w-24">
+                    </div>
+                    <button id="randomizeBtn" class="btn-secondary h-10">Randomize</button>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap justify-center items-center gap-4 mb-6">
+                <button id="startBtn" class="btn-success">Start Simulation</button>
+                <div class="flex items-center space-x-2">
+                    <label for="speedControl" class="text-sm font-medium text-gray-700">Speed:</label>
+                    <input type="range" id="speedControl" min="1" max="100" value="50" class="w-32">
+                    <span id="speedValue" class="text-sm text-gray-600 w-12 text-right">1.0x</span>
+                </div>
+                <button id="quickEndBtn" class="btn-warning">Quick End</button>
+            </div>
+
+            <div class="mb-4 overflow-x-auto">
+                <canvas id="visualizationCanvas" width="1000" height="600"></canvas>
+            </div>
+
+            <div class="text-center">
+                <p id="animationMessage" class="text-sm text-blue-600 font-medium mb-2"></p>
+                <p id="totalMovement" class="text-lg font-semibold text-gray-800"></p>
+                <p id="pathOutput" class="text-sm text-gray-600 mt-2 break-words"></p>
+            </div>
+        </div>
+
+        <script src="scripts.js" ></script>
+    </body>
+</html>
